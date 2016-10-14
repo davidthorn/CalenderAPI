@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\StoreCalenderEntry;
-use App\CalenderEntry;
+use App\Models\CalenderEntry;
 use Carbon\Carbon;
+//use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class EntryController extends Controller
 {
@@ -31,11 +32,15 @@ class EntryController extends Controller
 
 
 	public function entry( $id ){
-		$entry = CalenderEntry::find( $id );
+		$entry = CalenderEntry::findOrFail( $id );
 		if( $entry ){
 			return response()->json( $entry , 200 );
 		}
+
+
 		return response()->json( null , 404 );
+
+		//throw new HttpException(404, 'not found');
 	}
 
 
@@ -85,3 +90,4 @@ class EntryController extends Controller
 
 		return response()->json($result ,  200);
 	}
+}

@@ -16,8 +16,8 @@ class Handler extends ExceptionHandler
     protected $dontReport = [
         \Illuminate\Auth\AuthenticationException::class,
         \Illuminate\Auth\Access\AuthorizationException::class,
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
-        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
+        #\Symfony\Component\HttpKernel\Exception\HttpException::class,
+        #\Illuminate\Database\Eloquent\ModelNotFoundException::class,
         \Illuminate\Session\TokenMismatchException::class,
         \Illuminate\Validation\ValidationException::class,
     ];
@@ -44,6 +44,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+
+            return response()->json([
+                'error' => $exception->getMessage(),
+                #'status_code' => $exception->getStatusCode(),
+            ], 404);
+        }
+
         return parent::render($request, $exception);
     }
 
