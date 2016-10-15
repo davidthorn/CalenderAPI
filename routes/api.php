@@ -18,8 +18,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 
-Route::get('/calender/entries/{id}' , "EntryController@entry");
-Route::get('/calender/entries' , "EntryController@entries");
+Route::get('/calender/entries/{id}' , "EntryController@show");
+Route::get('/calender/entries' , "EntryController@index");
 Route::post('/calender/entries' , "EntryController@create");
 Route::patch('/calender/entries' , "EntryController@update");
-Route::delete('/calender/entries' , "EntryController@delete");
+Route::delete('/calender/entries/{id}' , "EntryController@delete");
