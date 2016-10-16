@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+// Laravel FormRequest
+// use Illuminate\Foundation\Http\FormRequest;
+
+// Dingo API FormRequest
+use Dingo\Api\Http\FormRequest;
 
 class BaseRequest extends FormRequest
 {

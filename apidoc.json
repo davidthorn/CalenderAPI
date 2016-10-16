@@ -1,0 +1,15 @@
+{
+    "name": "calendar-api",
+    "version": "0.1.0",
+    "title": "Calendar API",
+    "description": "Blueprint documentation",
+    "url": "http://localhost",
+    "header": {
+        "title": "Calendar API blueprint"
+    },
+    "template": {
+        "withCompare": false,
+        "withGenerator": false
+    },
+    "order": []
+}
