@@ -24,11 +24,11 @@ class CalenderEntryController extends Controller
         $dateFilter = Carbon::parse($timestamp);
 
         $changed = CalenderEntry::withTrashed()
-            ->whereDate('updated_at', '=', $dateFilter)
+            ->whereDate('updated_at', '>=', $dateFilter)
             ->whereNull('deleted_at');
 
         $deleted = CalenderEntry::withTrashed()
-            ->whereDate('updated_at', '=', $dateFilter)
+            ->whereDate('updated_at', '>=', $dateFilter)
             ->whereNotNull('deleted_at');
 
         $data = [
