@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\PrepareSchema::class,
     ];
 
     /**
@@ -24,8 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        // Removed
     }
 
     /**
@@ -35,6 +34,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        require base_path('routes/console.php');
+        // Removed
     }
 }

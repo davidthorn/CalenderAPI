@@ -59,11 +59,15 @@ return [
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
-            'charset' => 'utf8',
-            'collation' => 'utf8_unicode_ci',
+            'charset'   => env('DB_CHARSET', 'utf8'),
+            'collation' => env('DB_COLLATION', 'utf8_unicode_ci'),
             'prefix' => '',
             'strict' => true,
-            'engine' => null,
+            'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
+            'options' => [
+                // Having UTC with every connect
+                \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET time_zone = \'+00:00\''
+            ]
         ],
 
         'pgsql' => [

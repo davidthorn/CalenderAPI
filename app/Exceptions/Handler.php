@@ -4,6 +4,9 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -14,12 +17,12 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        \Illuminate\Auth\AuthenticationException::class,
+        AuthenticationException::class,
         \Illuminate\Auth\Access\AuthorizationException::class,
-        #\Symfony\Component\HttpKernel\Exception\HttpException::class,
-        #\Illuminate\Database\Eloquent\ModelNotFoundException::class,
+        HttpException::class,
+        ModelNotFoundException::class,
         \Illuminate\Session\TokenMismatchException::class,
-        \Illuminate\Validation\ValidationException::class,
+        ValidationException::class,
     ];
 
     /**
@@ -32,6 +35,12 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        switch ($exception) {
+            case ($exception instanceof ModelNotFoundException):
+                return api_response()->errorNotFound($exception->getMessage());
+            break;
+        }
+
         parent::report($exception);
     }
 
@@ -44,14 +53,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
-
-            return response()->json([
-                'error' => $exception->getMessage(),
-                #'status_code' => $exception->getStatusCode(),
-            ], 404);
-        }
-
         return parent::render($request, $exception);
     }
 
