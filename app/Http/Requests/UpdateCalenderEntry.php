@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class StoreCalenderEntry extends BaseRequest
+class UpdateCalenderEntry extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,9 +12,9 @@ class StoreCalenderEntry extends BaseRequest
     public function rules()
     {
         return [
-             'start' => 'required|date', 
-             'finish' => 'required|date', 
-             'subject' => 'required|string|min:1|max:254',
+             'start' => 'sometimes|date',
+             'finish' => 'sometimes|date',
+             'subject' => 'sometimes|string|min:1|max:254',
         ];
     }
 

@@ -15,12 +15,12 @@ class CreateCalenderEntriesTable extends Migration
     {
         Schema::create('calender_entries', function (Blueprint $table) {
             $table->increments('id');
-            $table->datetime("start");
-            $table->datetime("finish");
-            $table->string("subject");
-            $table->string("color");
-            $table->text("params");
-            $table->boolean("deleted");
+            $table->datetime('start');
+            $table->datetime('finish');
+            $table->string('subject');
+            $table->string('color');
+            $table->text('params');
+            $table->boolean('deleted');
             $table->timestamps();
         });
     }
