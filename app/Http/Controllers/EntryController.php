@@ -39,8 +39,6 @@ class EntryController extends Controller
 
 
 		return response()->json( null , 404 );
-
-		//throw new HttpException(404, 'not found');
 	}
 
 
@@ -65,6 +63,7 @@ class EntryController extends Controller
 		}
 
 		$entry->deleted = true;
+$entry->update();
 
 		if ($entry->save()){
 			return response()->json(200);
@@ -79,12 +78,13 @@ class EntryController extends Controller
 		$whereCondition = Carbon::parse($request->header('timestamp'));
 
 		$entries = CalenderEntry::where( "updated_at" , ">=" ,  $whereCondition );
+		$deleted_scope = CalenderEntry::where( "updated_at" , ">=" ,  $whereCondition ); ;
 
 		$result = [
 			"timestamp" => Carbon::now(),	 
 			"entries" => [ 
 				"changed" => $entries->where("deleted" , false )->get(), 
-				"deleted" => $entries->where("deleted" , true )->get() 
+				"deleted" => $deleted_scope->where("deleted" , true )->get() 
 			],
 		];
 
